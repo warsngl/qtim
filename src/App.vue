@@ -1,25 +1,24 @@
 <script>
-import TheNavbar from "./components/TheNavbar.vue";
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 export default {
-  components: { TheNavbar },
+  components: {
+    Header,
+    Footer,
+  },
 };
 </script>
-
-<template lang='pug'>
-TheNavbar.mb-8
-.flex.flex-col.items-center
-  router-view
+<template>
+  <Header />
+  <router-view />
+  <Footer />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #072227;
-  min-width: 100vw;
-  min-height: 100vh;
-  padding: 20px;
-  background: #d3dedc;
+html {
+  margin: 0;
+  padding: 0;
+  width: 1440px;
+  font-family: "TT Commons" !important;
 }
 </style>

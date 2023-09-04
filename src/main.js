@@ -4,12 +4,13 @@ import { createRouter,createWebHashHistory } from 'vue-router'
 import store from './store'
 import App from './App.vue'
 import './assets/index.css'
-import Home from './components/Home.vue'
-import About from './components/About.vue'
+import Main from './pages/Main.vue'
+import Article from './pages/Article.vue'
 
 const routes=[
-  {path:'/', component: Home},
-  {path:'/about', component: About},
+  {path:'/', component: Main},
+  {path:'/page/:pageId', component: Main},
+  {path:'/article/:articleId', component: Article},
 ]
 const router = createRouter({
   history: createWebHashHistory(),
