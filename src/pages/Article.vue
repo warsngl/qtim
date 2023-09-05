@@ -1,12 +1,14 @@
-<script>
-export default {
+<script lang="ts">
+import Article from "../models/article";
+import { defineComponent } from "vue";
+export default defineComponent({
   data() {
     return {
-      article: {},
+      article: {} as Article,
     };
   },
   computed: {
-    articleId() {
+    articleId():string {
       return this.$route.params.articleId;
     },
   },
@@ -17,17 +19,8 @@ export default {
       .then((res) => res.json())
       .then((json) => (this.article = json));
   },
-  // watch: {
-  //   async articleId(val) {
-  //     if(val){
-  //       await fetch("https://6082e3545dbd2c001757abf5.mockapi.io/qtim-test-work/posts/" + val)
-  //       .then((res) => res.json())
-  //       .then((json) => (this.article = json));
-  //     }
-  //   },
-  // },
   components: {},
-};
+})
 </script>
 <template>
   <div class="article">

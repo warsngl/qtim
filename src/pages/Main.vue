@@ -1,8 +1,10 @@
-<script>
-export default {
+<script lang="ts">
+import Article from "../models/article";
+import { defineComponent } from "vue";
+export default defineComponent({
   data() {
     return {
-      articles: [],
+      articles: [] as Article[],
       articlesCount: 8,
     };
   },
@@ -12,39 +14,42 @@ export default {
       .then((json) => (this.articles = json));
   },
   computed: {
-    articlesOnPage() {
+    articlesOnPage(): Article[] {
       let p = this.pageId;
       return this.articles.slice((p - 1) * this.articlesCount, p * this.articlesCount);
     },
     pageId: {
-      get() {
-        return +this.$route.params?.pageId || 1;
+      get(): string {
+        return this.$route.params?.pageId || 1;
       },
-      set(page) {
+      set(page: string) {
         this.$router.push("/page/" + page);
       },
     },
-    pages() {
-      return Array.from({ length: Math.ceil(this.articles.length / 8) }, (_, i) => i + 1);
+    pages(): string[] {
+      return Array.from(
+        { length: Math.ceil(this.articles.length / 8) },
+        (_, i) => i + 1 + ""
+      );
     },
   },
   methods: {
     nextPage() {
       this.pageId < this.pages.length && this.pageId++;
     },
-    openArticle(id) {
+    openArticle(id: string) {
       this.$router.push("/article/" + id);
     },
   },
   components: {},
-};
+});
 </script>
 <template>
   <div class="main">
     <h1>Articles</h1>
     <div class="articles">
       <div
-        class="article"
+        class="article hover:translate-y-[-32px]"
         v-for="article in articlesOnPage"
         :key="article.id"
         @click="openArticle(article.id)"
@@ -52,9 +57,7 @@ export default {
         <div class="article__image">
           <img :src="article.image" alt="" width="280" height="280" />
         </div>
-
         <h2>{{ article.preview }}</h2>
-        <!-- <p>{{ article.description }}</p> -->
       </div>
     </div>
     <nav>
